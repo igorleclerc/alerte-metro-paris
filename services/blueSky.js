@@ -7,18 +7,14 @@ const agent = new BskyAgent({ service: 'https://bsky.social' });
  * 🔑 Connexion à BlueSky
  */
 async function loginToBlueSky() {
-    console.log("🔄 Tentative de connexion à BlueSky...");
-
     try {
-        const agent = new BskyAgent({ service: "https://bsky.social" });
-
+        console.log("🔄 Tentative de connexion à BlueSky...");
         await agent.login({
-            identifier: process.env.BLUESKY_USERNAME,
-            password: process.env.BLUESKY_PASSWORD,
+            identifier: process.env.BLUESKY_EMAIL, // Utilise l'email
+            password: process.env.BLUESKY_PASSWORD
         });
-
         console.log("✅ Connexion réussie !");
-        return agent; // On retourne l'agent correctement connecté
+        return agent;
     } catch (error) {
         console.error("❌ Erreur lors de la connexion à BlueSky:", error);
         return null;
@@ -56,7 +52,6 @@ function extractHashtags(message) {
 async function postToBlueSky(message) {
     try {
         if (!agent.session) {
-            console.log("🔄 Tentative de reconnexion à BlueSky...");
             await loginToBlueSky();
         }
 
