@@ -9,18 +9,18 @@ const agent = new BskyAgent({ service: 'https://bsky.social' });
 async function loginToBlueSky() {
     console.log("🔄 Tentative de connexion à BlueSky...");
 
-    const agent = new BskyAgent({ service: "https://bsky.social" });
-
     try {
+        const agent = new BskyAgent({ service: "https://bsky.social" });
+
         await agent.login({
-            identifier: process.env.BLUESKY_EMAIL,
+            identifier: process.env.BLUESKY_USERNAME,
             password: process.env.BLUESKY_PASSWORD,
         });
 
         console.log("✅ Connexion réussie !");
-        return agent;
+        return agent; // On retourne l'agent correctement connecté
     } catch (error) {
-        console.error("❌ Erreur de connexion à BlueSky:", error);
+        console.error("❌ Erreur lors de la connexion à BlueSky:", error);
         return null;
     }
 }
