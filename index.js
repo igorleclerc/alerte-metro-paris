@@ -1,4 +1,5 @@
 const { checkAndPostDisruptions } = require('./disruptions');
+require('./status');
 
 (async () => {
     try {
