@@ -1,5 +1,5 @@
 const { BskyAgent } = require('@atproto/api');
-const { BLUESKY_EMAIL, BLUESKY_PASSWORD } = require('./config');
+const { BLUESKY_EMAIL, BLUESKY_PASSWORD } = require('../config');
 
 const agent = new BskyAgent({ service: 'https://bsky.social' });
 
@@ -7,14 +7,21 @@ const agent = new BskyAgent({ service: 'https://bsky.social' });
  * 🔑 Connexion à BlueSky
  */
 async function loginToBlueSky() {
+    console.log("🔄 Tentative de connexion à BlueSky...");
+
+    const agent = new BskyAgent({ service: "https://bsky.social" });
+
     try {
         await agent.login({
-            identifier: BLUESKY_EMAIL,
-            password: BLUESKY_PASSWORD
+            identifier: process.env.BLUESKY_EMAIL,
+            password: process.env.BLUESKY_PASSWORD,
         });
-        console.log('✅ Connecté à BlueSky');
+
+        console.log("✅ Connexion réussie !");
+        return agent;
     } catch (error) {
-        console.error('❌ Erreur de connexion BlueSky:', error.message);
+        console.error("❌ Erreur de connexion à BlueSky:", error);
+        return null;
     }
 }
 
@@ -96,6 +103,7 @@ async function postToBlueSky(message) {
         console.error('❌ Erreur de publication sur BlueSky:', error.response?.data || error.message);
         return null;
     }
+
 }
 
 module.exports = { loginToBlueSky, postToBlueSky };

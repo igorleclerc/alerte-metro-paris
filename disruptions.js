@@ -1,6 +1,6 @@
 const { getDisruptions } = require('./api');
 const { isDisruptionPublished, markDisruptionAsPublished } = require('./firestore');
-const { postToBlueSky } = require('./blueSky');
+const { postToBlueSky } = require('./services/blueSky');
 
 const CHECK_INTERVAL = 90 * 1000; // 90 secondes
 
